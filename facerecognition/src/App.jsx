@@ -1,33 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCallback } from "react";
+import Navigation from "./components/Navigation/Navigation";
+import Logo from "./components/Logo/Logo";
+import ImageUrlForm from "./components/ImageUrlForm/ImageUrlForm";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+import './App.css';
+
+const particleOptions = {
+  fpsLimit: 120,
+  interactivity: {
+      modes: {
+          push: {
+              quantity: 4,
+          },
+          repulse: {
+              distance: 200,
+              duration: 0.4,
+          },
+      },
+  },
+  particles: {
+      color: {
+          value: "#ffffff",
+      },
+      links: {
+          color: "#ffffff",
+          distance: 150,
+          enable: true,
+          opacity: 0.5,
+          width: 1,
+      },
+      move: {
+          direction: "none",
+          enable: true,
+          outModes: {
+              default: "bounce",
+          },
+          random: false,
+          speed: 2,
+          straight: false,
+      },
+      number: {
+          density: {
+              enable: true,
+              area: 900,
+          },
+          value: 100,
+      },
+      shape: {
+          type: "none",
+      },
+      size: {
+          value: { min: 1, max: 4 },
+      },
+  },
+  detectRetina: true
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const particlesInit = useCallback(async engine => {
+    await loadSlim(engine);
+}, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <Particles
+            id="tsparticles"
+            init={particlesInit}
+            options={particleOptions}
+        />
+      <Navigation />
+      <Logo />
+      <ImageUrlForm />
     </>
   )
 }
