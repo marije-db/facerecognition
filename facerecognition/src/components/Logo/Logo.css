@@ -1,0 +1,21 @@
+img {
+    width: 90px;
+}
+
+.tilt-main {
+    width: fit-content;
+    margin-left: 1rem;
+}
+
+.tilt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    width: 120px;
+    background: #00fffc;
+    background: linear-gradient(70deg, #00fffc 0%, #fc00ff 100%);  
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+

@@ -1,7 +1,20 @@
-function ImageUrlForm() {
+import "./ImageUrlForm.css"
+/* eslint-disable react/prop-types */
+function ImageUrlForm({onInputChange, onButtonSubmit}) {
     return(
         <>
-            <input type="text" placeholder="Link to image here please..."/>
+        <div className="form-field">
+            <input 
+                className="inputfield" 
+                type="text" 
+                placeholder="Link to image here please..."
+                onChange={onInputChange}
+            />
+            <button 
+                className="detect-btn"
+                onClick={onButtonSubmit}
+            >Detect</button>
+        </div>
         </>
     )
 }

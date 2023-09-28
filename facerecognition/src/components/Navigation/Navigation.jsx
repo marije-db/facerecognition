@@ -1,7 +1,11 @@
+import "./Navigation.css"
+
 function Navigation() {
     return(
         <>
-            <p>Sign Out</p>
+            <nav className="nav">
+                <p>Sign Out</p>
+            </nav>
         </>
     )
 }
