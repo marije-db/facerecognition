@@ -3,6 +3,16 @@ img {
 }
 
 .image-container {
+    position: relative;
     margin: auto;
-    width: 60%;
+    margin-top: 1rem;
+    width: 70%;
+}
+
+.face-box {
+    position: absolute;
+    box-shadow: 0 0 0 3px #2f00ff inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }

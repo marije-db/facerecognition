@@ -80,6 +80,7 @@ const clarifaiRequestOptions = (imgUrl) => {
 function App() {
   const [image, setImage] = useState("")
   const [btnPressed, setBtnPressed] = useState(false)
+  const [boxes, setBoxes] = useState([])
   
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
@@ -87,8 +88,25 @@ function App() {
 
 
   function calculateFaceBox(data){
-    const test = data.outputs[0].data.regions[0].region_info.bounding_box;
-    console.log(test)
+    console.log(data)
+    const regions = data.outputs[0].data.regions;
+    // console.log(" regions, => ", regions)
+    const img = document.getElementById('img');
+    const width = img.width;
+    const height = img.height;
+
+
+    const allFaces = regions.map(region => {
+      let regionInfo = region.region_info.bounding_box
+      return {
+          leftCol: regionInfo.left_col * width,
+          rightCol: width - (regionInfo.right_col * width),
+          topRow: regionInfo.top_row * height,
+          bottomRow: height - (regionInfo.bottom_row * height)
+        }
+    })
+
+    setBoxes(allFaces)
   }  
     
   function onInputChange(e){
@@ -119,7 +137,11 @@ function App() {
       <Logo />
       <Rank />
       <ImageUrlForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
-      <FaceRecognition image={image} showImage={btnPressed} />
+      <FaceRecognition 
+        image={image} 
+        showImage={btnPressed} 
+        boxes={boxes}
+      />
     </>
   )
 }
