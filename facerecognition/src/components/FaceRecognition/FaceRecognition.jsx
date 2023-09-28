@@ -1,12 +1,17 @@
 import "./FaceRecognition.css"
 
 /* eslint-disable react/prop-types */
-function FaceRecognition({image}){
+function FaceRecognition({image, showImage}){
     return(
         <>
+            {showImage 
+            ? 
             <div className="image-container">
                 <img src={image} alt="" />
-            </div>
+            </div> 
+            : 
+            <div></div> 
+            }
         </>
     )
 }

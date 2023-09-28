@@ -79,20 +79,32 @@ const clarifaiRequestOptions = (imgUrl) => {
 
 function App() {
   const [image, setImage] = useState("")
+  const [btnPressed, setBtnPressed] = useState(false)
   
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
   }, []);
-  
+
+
+  function calculateFaceBox(data){
+    const test = data.outputs[0].data.regions[0].region_info.bounding_box;
+    console.log(test)
+  }  
     
   function onInputChange(e){
+    setBtnPressed(false)
     setImage(e.target.value)
   }
-
+  
   function onButtonSubmit(){
+    if(image){
+      setBtnPressed(true)
+    }
     fetch("https://api.clarifai.com/v2/models/face-detection/outputs", clarifaiRequestOptions(image))
         .then(response => response.json())
-        .then(result => console.log(result))
+        .then(result => {
+          calculateFaceBox(result);
+        })
         .catch(error => console.log('error', error));
   }
 
@@ -107,7 +119,7 @@ function App() {
       <Logo />
       <Rank />
       <ImageUrlForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
-      <FaceRecognition image={image} />
+      <FaceRecognition image={image} showImage={btnPressed} />
     </>
   )
 }
