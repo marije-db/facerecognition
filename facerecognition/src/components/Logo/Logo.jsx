@@ -8,7 +8,7 @@ function Logo() {
         <>
             <Tilt className='tilt-main' gyroscope={true} tiltMaxAngleX={45} tiltMaxAngleY={45}>
                 <div className='tilt'>
-                    <img src={logo} alt="logo" />
+                    <img className='logo' src={logo} alt="logo" />
                 </div>
             </Tilt>
         </>

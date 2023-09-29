@@ -1,17 +1,15 @@
 .legend {
     font-size: 3rem;
+    font-weight: 400;
     margin-bottom: .4em;
-}
-
-fieldset {
-    border: none;
+    margin-top: 0;
 }
 
 .input {
     background-color: transparent;
     border: 1px solid black;
     border-radius: 2px;
-    height: 2em;
+    padding: .5em 1em;
 }
 
 .form-container {
@@ -19,25 +17,34 @@ fieldset {
     padding: 1.5em;
     border: 1px solid black;
     border-radius: 5px;
-    width: 300px;
+    max-width: 400px;
     box-shadow: 3px 3px 4px #202020;
 }
 
 .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: .2em;
     text-align: center;
     width: 100%;
     padding-bottom: 1em;
 }
 
-.input-container input {
-    width: 100%;
-}
-
 .submit-btn {
-    padding: .5em 2em;
+    padding: .8em 2em;
     cursor: pointer;
 }
 
 .link {
     color: #202020;
+}
+
+@media (max-width: 360px) {
+    .legend {
+        font-size: 2rem;
+    }
+
+    .input {
+        max-width: 100%;
+    }
 }

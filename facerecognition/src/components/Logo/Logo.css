@@ -1,5 +1,6 @@
-img {
-    width: 90px;
+.logo {
+    filter: opacity(.7);
+    width: 70px;
 }
 
 .tilt-main {
@@ -14,8 +15,7 @@ img {
     height: 120px;
     width: 120px;
     background: #00fffc;
-    background: linear-gradient(70deg, #00fffc 0%, #fc00ff 100%);  
-    border: 1px solid #000;
-    border-radius: 10px;
+    background: linear-gradient(70deg, rgba(0, 255, 251, 0.5) 0%, rgba(251, 0, 255, 0.5) 100%);  
+    border-radius: 6px;
 }
 

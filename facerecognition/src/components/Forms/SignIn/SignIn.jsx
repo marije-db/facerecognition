@@ -4,8 +4,7 @@ import "../Forms.css";
 function SignIn({ handleRouteChange }){
     return(
             <form className="form-container">
-                <fieldset>
-                    <legend className="legend center">Sign In</legend>
+                    <h1 className="legend center">Sign In</h1>
                     <div className="input-container">
                         <label htmlFor="email">Email</label>
                         <input className="input" type="email" id="email"/>
@@ -14,13 +13,12 @@ function SignIn({ handleRouteChange }){
                         <label htmlFor="password">Password</label>
                         <input className="input" type="password" name="" id="password" />
                     </div>
-                </fieldset>
                 <div className="center">
                     <input 
                         onClick={() => handleRouteChange('home')}
                         className="submit-btn input" 
                         type="submit" 
-                        value="submit" 
+                        value="Submit" 
                     /> 
                 </div>
                 <div className="center">
