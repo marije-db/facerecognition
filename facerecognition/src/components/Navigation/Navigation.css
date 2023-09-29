@@ -1,4 +1,12 @@
 .nav {
+    font-size: 1.2rem;
     display: flex;
     justify-content: flex-end;
+    margin-right: 1em;
+    cursor: pointer;
 }
+
+.nav p {
+    text-decoration: underline;
+}
+

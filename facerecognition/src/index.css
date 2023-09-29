@@ -1,6 +1,12 @@
 body {
+    Font-family: Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+    color: #202020;
     margin: 0;
     background: #00fffc;
     background: linear-gradient(70deg, #00fffc 0%, #fc00ff 100%);  
     background-attachment: fixed;
+}
+
+.center {
+    text-align: center;
 }

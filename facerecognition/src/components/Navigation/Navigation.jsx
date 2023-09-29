@@ -1,12 +1,24 @@
 import "./Navigation.css"
 
-function Navigation() {
+/* eslint-disable react/prop-types */
+function Navigation({ handleRouteChange, route }) {
     return(
-        <>
-            <nav className="nav">
-                <p>Sign Out</p>
-            </nav>
-        </>
+            route === "home" 
+                ?
+                    <nav className="nav">
+                        <p onClick={() => handleRouteChange('signin')}>Sign Out</p>
+                    </nav>
+                :
+                    route === "signin"
+                        ?
+                            <nav className="nav">
+                                <p onClick={() => handleRouteChange('register')}>Register</p>
+                            </nav>
+                        : 
+                            <nav className="nav">
+                                <p onClick={() => handleRouteChange('signin')}>Sign in</p>
+                            </nav>
+
     )
 }
 

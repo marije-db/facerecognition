@@ -1,0 +1,43 @@
+.legend {
+    font-size: 3rem;
+    margin-bottom: .4em;
+}
+
+fieldset {
+    border: none;
+}
+
+.input {
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 2px;
+    height: 2em;
+}
+
+.form-container {
+    margin: auto;
+    padding: 1.5em;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 3px 3px 4px #202020;
+}
+
+.input-container {
+    text-align: center;
+    width: 100%;
+    padding-bottom: 1em;
+}
+
+.input-container input {
+    width: 100%;
+}
+
+.submit-btn {
+    padding: .5em 2em;
+    cursor: pointer;
+}
+
+.link {
+    color: #202020;
+}

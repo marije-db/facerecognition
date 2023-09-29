@@ -4,6 +4,8 @@ import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageUrlForm from "./components/ImageUrlForm/ImageUrlForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import SignIn from "./components/Forms/SignIn/SignIn";
+import Register from "./components/Forms/Register/Register";
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import './App.css';
@@ -81,6 +83,8 @@ function App() {
   const [image, setImage] = useState("")
   const [btnPressed, setBtnPressed] = useState(false)
   const [boxes, setBoxes] = useState([])
+  const [route, setRoute] = useState("signin")
+  // const [signedIn, setSignedIn] = useState(false)
   
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
@@ -126,6 +130,14 @@ function App() {
         .catch(error => console.log('error', error));
   }
 
+  function handleRouteChange(route){
+    // if (route === 'home') {
+    //   setSignedIn(true)
+    // }
+    setRoute(route)
+  }
+  
+
   return (
     <>
     <Particles
@@ -133,15 +145,32 @@ function App() {
             init={particlesInit}
             options={particleOptions}
         />
-      <Navigation />
-      <Logo />
-      <Rank />
-      <ImageUrlForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
-      <FaceRecognition 
-        image={image} 
-        showImage={btnPressed} 
-        boxes={boxes}
+      <Navigation 
+        handleRouteChange={handleRouteChange} 
+        route={route}
       />
+      {route === 'signin'
+        ?
+         <SignIn handleRouteChange={handleRouteChange} />
+        :
+        route === 'register' 
+          ?
+            <Register handleRouteChange={handleRouteChange} /> 
+          :
+            <div>
+              <Logo />
+              <Rank />
+              <ImageUrlForm 
+                onInputChange={onInputChange} 
+                onButtonSubmit={onButtonSubmit} 
+              />
+              <FaceRecognition 
+                image={image} 
+                showImage={btnPressed} 
+                boxes={boxes}
+              />
+            </div>
+      }
     </>
   )
 }
