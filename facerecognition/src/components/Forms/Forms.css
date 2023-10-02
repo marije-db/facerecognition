@@ -12,6 +12,11 @@
     padding: .5em 1em;
 }
 
+.input:focus {
+    outline: none;
+    box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.50);
+}
+
 .form-container {
     margin: auto;
     padding: 1.5em;
@@ -33,6 +38,7 @@
 .submit-btn {
     padding: .8em 2em;
     cursor: pointer;
+    font-family: inherit;
 }
 
 .link {

@@ -84,7 +84,6 @@ function App() {
   const [btnPressed, setBtnPressed] = useState(false)
   const [boxes, setBoxes] = useState([])
   const [route, setRoute] = useState("signin")
-  // const [signedIn, setSignedIn] = useState(false)
   
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
@@ -131,9 +130,6 @@ function App() {
   }
 
   function handleRouteChange(route){
-    // if (route === 'home') {
-    //   setSignedIn(true)
-    // }
     setRoute(route)
   }
   

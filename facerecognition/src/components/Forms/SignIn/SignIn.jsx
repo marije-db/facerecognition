@@ -7,11 +7,11 @@ function SignIn({ handleRouteChange }){
                     <h1 className="legend center">Sign In</h1>
                     <div className="input-container">
                         <label htmlFor="email">Email</label>
-                        <input className="input" type="email" id="email"/>
+                        <input className="input" type="email" id="email" autoComplete="username"/>
                     </div>
                     <div className="input-container">
                         <label htmlFor="password">Password</label>
-                        <input className="input" type="password" name="" id="password" />
+                        <input className="input" type="password" name="" id="password" autoComplete="current-password" />
                     </div>
                 <div className="center">
                     <input 
