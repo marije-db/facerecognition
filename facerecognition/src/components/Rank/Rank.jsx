@@ -1,11 +1,12 @@
 import "./Rank.css"
 
-function Rank() {
+/* eslint-disable react/prop-types */
+function Rank({ name, entries }) {
     return(
         <>
             <div className="rank-container">
-                <p>Hi you, youre rank is</p>
-                <p>#5</p>
+                <p>Hi {name}, your current entry count is: </p>
+                <p>{entries}</p>
             </div>
         </>
     )

@@ -1,21 +1,67 @@
+import { useState } from "react";
 import "../Forms.css";
 
 /* eslint-disable react/prop-types */
-function SignIn({ handleRouteChange }){
+function SignIn({ handleRouteChange, loadUser }){
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+
+    function emailChange(event){
+        event.preventDefault()
+        setEmail(event.target.value)
+    }
+    
+    function passwordChange(event){
+        event.preventDefault()
+        setPassword(event.target.value)
+    }
+    
+    function onSubmit(event){
+        event.preventDefault()
+        fetch('http://localhost:3000/signin', {
+            method: "post",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(user => {
+            if(user.id){
+                loadUser(user)
+                handleRouteChange('home')
+            }
+        })
+    }
+
     return(
             <form className="form-container">
                     <h1 className="legend center">Sign In</h1>
                     <div className="input-container">
                         <label htmlFor="email">Email</label>
-                        <input className="input" type="email" id="email" autoComplete="username"/>
+                        <input 
+                            onChange={emailChange}
+                            className="input" 
+                            type="email" 
+                            id="email" 
+                            autoComplete="username"
+                        />
                     </div>
                     <div className="input-container">
                         <label htmlFor="password">Password</label>
-                        <input className="input" type="password" name="" id="password" autoComplete="current-password" />
+                        <input 
+                            onChange={passwordChange}
+                            className="input" 
+                            type="password" 
+                            name="" 
+                            id="password" 
+                            autoComplete="current-password" 
+                        />
                     </div>
                 <div className="center">
                     <input 
-                        onClick={() => handleRouteChange('home')}
+                        onClick={onSubmit}
                         className="submit-btn input" 
                         type="submit" 
                         value="Submit" 

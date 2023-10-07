@@ -84,16 +84,31 @@ function App() {
   const [btnPressed, setBtnPressed] = useState(false)
   const [boxes, setBoxes] = useState([])
   const [route, setRoute] = useState("signin")
+  const [user, setUser] = useState({
+            id: '',
+            name: '',
+            email: '',
+            entries: 0,
+            joined: ''
+  })
   
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
   }, []);
 
+  function loadUser(user){
+    setUser( {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      entries: user.entries,
+      joined: user.joined
+    })
+  }
 
   function calculateFaceBox(data){
     console.log(data)
     const regions = data.outputs[0].data.regions;
-    // console.log(" regions, => ", regions)
     const img = document.getElementById('img');
     const width = img.width;
     const height = img.height;
@@ -117,13 +132,27 @@ function App() {
     setImage(e.target.value)
   }
   
-  function onButtonSubmit(){
+  function onImageSubmit(){
     if(image){
       setBtnPressed(true)
     }
     fetch("https://api.clarifai.com/v2/models/face-detection/outputs", clarifaiRequestOptions(image))
         .then(response => response.json())
         .then(result => {
+          if(result){
+            fetch('http://localhost:3000/image', {
+              method: "put",
+              headers: {"Content-Type" : "application/json"},
+              body: JSON.stringify({
+                  id: user.id,
+              })
+          })
+          .then(response => response.json())
+          .then(count => setUser({
+            ...user,
+            entries : count
+          }))
+          }
           calculateFaceBox(result);
         })
         .catch(error => console.log('error', error));
@@ -132,7 +161,6 @@ function App() {
   function handleRouteChange(route){
     setRoute(route)
   }
-  
 
   return (
     <>
@@ -147,18 +175,18 @@ function App() {
       />
       {route === 'signin'
         ?
-         <SignIn handleRouteChange={handleRouteChange} />
+         <SignIn loadUser={loadUser} handleRouteChange={handleRouteChange} />
         :
         route === 'register' 
           ?
-            <Register handleRouteChange={handleRouteChange} /> 
+            <Register loadUser={loadUser} handleRouteChange={handleRouteChange} /> 
           :
             <div>
               <Logo />
-              <Rank />
+              <Rank name={user.name} entries={user.entries} />
               <ImageUrlForm 
                 onInputChange={onInputChange} 
-                onButtonSubmit={onButtonSubmit} 
+                onButtonSubmit={onImageSubmit} 
               />
               <FaceRecognition 
                 image={image} 
