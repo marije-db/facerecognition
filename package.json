@@ -1,5 +1,6 @@
 {
   "name": "facerecognition",
+  "homepage": "http://marije-db.github.io/facerecognition",
   "private": true,
   "version": "0.0.0",
   "type": "module",
