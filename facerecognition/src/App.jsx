@@ -45,40 +45,6 @@ const particleOptions = {
   }
 }
 
-const clarifaiRequestOptions = (imgUrl) => {
-  const PAT = 'c57ff8c9ac8a4328a4a27ff183f18b43';
-  const USER_ID = 'a0tlik13b3gs';       
-  const APP_ID = 'face-detection-app_32730_React';
-  const IMAGE_URL = imgUrl;
-  
-  const raw = JSON.stringify({
-      "user_app_id": {
-          "user_id": USER_ID,
-          "app_id": APP_ID
-      },
-      "inputs": [
-          {
-              "data": {
-                  "image": {
-                      "url": IMAGE_URL
-                  }
-              }
-          }
-      ]
-    })
-    
-  const requestOptions = {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Key ' + PAT
-      },
-      body: raw
-  }
-
-  return requestOptions
-}
-
 function App() {
   const [image, setImage] = useState("")
   const [btnPressed, setBtnPressed] = useState(false)
@@ -107,7 +73,6 @@ function App() {
   }
 
   function calculateFaceBox(data){
-    console.log(data)
     const regions = data.outputs[0].data.regions;
     const img = document.getElementById('img');
     const width = img.width;
@@ -136,29 +101,56 @@ function App() {
     if(image){
       setBtnPressed(true)
     }
-    fetch("https://api.clarifai.com/v2/models/face-detection/outputs", clarifaiRequestOptions(image))
-        .then(response => response.json())
-        .then(result => {
-          if(result){
-            fetch('http://localhost:3000/image', {
-              method: "put",
-              headers: {"Content-Type" : "application/json"},
-              body: JSON.stringify({
-                  id: user.id,
-              })
+    fetch("https://backend-wzkj.onrender.com/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: image,
+      }),
+    })
+    .then((response) => {
+      if (response.status === 500) {
+        throw new Error(
+        "Whoops! Sorry, we are currently unable to connect to the API."
+        );
+      }
+      return response.json();
+    })
+    .then(response => {
+      if(response) {
+        fetch('https://backend-wzkj.onrender.com/image', {
+          method: "put",
+          headers: {"Content-Type" : "application/json"},
+          body: JSON.stringify({
+              id: user.id,
           })
-          .then(response => response.json())
-          .then(count => setUser({
-            ...user,
-            entries : count
-          }))
-          }
-          calculateFaceBox(result);
         })
-        .catch(error => console.log('error', error));
+        .then(response => response.json())
+        .then(count => setUser({
+          ...user,
+          entries : count
+        }))
+        .catch(console.log)
+      }
+        calculateFaceBox(JSON.parse(response))
+      })
+    .catch(error => console.log('error', error));
+
   }
 
   function handleRouteChange(route){
+    if(route === 'signin'){
+      setImage('')
+      setBtnPressed(false)
+      setBoxes([])
+      setUser({
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      })
+    }
     setRoute(route)
   }
 

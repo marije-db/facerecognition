@@ -21,7 +21,7 @@ function Register({ handleRouteChange, loadUser }){
     
     function onSubmit(event){
         event.preventDefault()
-        fetch('http://localhost:3000/register', {
+        fetch('https://backend-wzkj.onrender.com/register', {
             method: "post",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -32,7 +32,7 @@ function Register({ handleRouteChange, loadUser }){
         })
         .then(response => response.json())
         .then(user => {
-            if(user){
+            if(user.id){
                 loadUser(user)
                 handleRouteChange('home')
             }
